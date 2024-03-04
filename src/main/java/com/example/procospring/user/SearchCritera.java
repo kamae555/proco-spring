@@ -35,4 +35,7 @@ public class SearchCritera {
         this.dormitory = dormitory;
     }
 }
+<<<<<<< HEAD
 // sdgfdgfc
+=======
+>>>>>>> 2bfd5307e991cec133aa197221ce39d319544e7c

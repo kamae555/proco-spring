@@ -14,7 +14,7 @@ public class YourService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<YourEntity> search(String country, String grade, String language, String period, Boolean dormitory) {
+    public List<YourEntity> search(String country, String grade, String language, String language2, String dormitory) {
         // SQL 쿼리를 동적으로 생성하기 위한 StringBuilder
         StringBuilder query = new StringBuilder("SELECT * FROM your_table WHERE 1=1");
 
@@ -25,12 +25,18 @@ public class YourService {
         if (language != null) {
             query.append(" AND languaespoken = '").append(language.replace("'", "''")).append("'");
         }
-        if (grade != null) {
-            query.append(" AND mincredit >= CAST(").append(grade).append(" AS DECIMAL)");
+
+        if (language2 != null) {
+            query.append(" AND languaespoken2 = '").append(language.replace("'", "''")).append("'");
         }
 
-        if (period != null) query.append(" AND period = '").append(period).append("'");
-        if (dormitory != null) query.append(" AND dormitory = ").append(dormitory ? 1 : 0);
+        if (grade != null) {
+            query.append(" AND mincredit <= CAST(").append(grade).append(" AS DECIMAL)");
+        }
+
+        if (dormitory != null) {
+            query.append(" AND dormitory = ").append(dormitory.replace("'", "''")).append("'");
+        }
 
         // 쿼리 실행
         return jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<>(YourEntity.class));
